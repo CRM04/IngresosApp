@@ -15,13 +15,24 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 //Modules
 import { AppRoutingModule } from './app.routing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+//NGRX
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './app.reducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 //FireBase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { environment } from '../environments/environment.prod';
+import { OrdenPipePipe } from './iegresos/orden-pipe.pipe';
+
+//Graphs
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -34,16 +45,24 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     EstadisticasComponent,
     NavbarComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    OrdenPipePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    StoreModule.forRoot(appReducer),
+    ChartsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

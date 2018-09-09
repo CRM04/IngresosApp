@@ -9,7 +9,7 @@
           </div>
 
           <div class="text-wrapper">
-            <p class="profile-name">Cristian RM</p>
+            <p class="profile-name"> {{ nombreUser }} </p>
             <div>
               <small class="designation text-muted">Gerente</small>
             </div>
@@ -40,8 +40,8 @@
       </a>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link cursor" [routerLink]="[ '/login' ]">
+    <li class="nav-item" (click)="this.logOut()">
+      <a class="nav-link cursor"  >
         <i class="menu-icon fa fa-sign-out-alt"></i>
         <span class="menu-title">Cerrar sesión</span>
       </a>
